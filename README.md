@@ -66,6 +66,16 @@ runBackgroundJob(ExampleJob::class, 1, 60);
 
 This example will delay the job for 60 seconds before it begins execution.
 
+### Job Priority
+
+You can configure the priority of the job. This can be useful if you have multiple jobs in the queue and want to control the order in which they are processed. You can set a priority by passing a fourth argument to the `runBackgroundJob` function:
+
+```php
+runBackgroundJob(ExampleJob::class, 1, 0, 10);
+```
+
+This will make the job a high priority, so it will be processed before other jobs in the queue.
+
 ## Example
 
 Here’s a complete example using all of the configuration options:
