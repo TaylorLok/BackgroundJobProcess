@@ -3,7 +3,14 @@
 use Symfony\Component\Process\Process;
 
 if (!function_exists('runBackgroundJob')) {
-    function runBackgroundJob(string $class, string $method, array $params = [], int $retries = 1, int $delay = 0, int $priority = 0): void
+    function runBackgroundJob(
+        string $class, 
+        string $method, 
+        array $params = [], 
+        int $retries = 1, 
+        int $delay = 0, 
+        int $priority = 0
+        ): void
     {
         $script = base_path('job_runner.php');
         $paramsJson = json_encode($params);

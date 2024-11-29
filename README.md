@@ -4,6 +4,47 @@
 
 The `runBackgroundJob` A lightweight, standalone background job processing system that operates independently of Laravel's queue system. This implementation allows you to execute PHP classes as background jobs without relying on Laravel's built-in queue infrastructure.
 
+## Clone and Install the Application
+
+Follow the steps below to clone the project, install the dependencies, and run the application:
+
+### Step 1: Clone the Repository
+
+First, clone the repository to your local machine:
+
+```bash
+git clone https://github.com/TaylorLok/BackgroundJobProcess.git
+```
+
+### Step 2: Install Dependencies
+
+```bash
+cd BackgroundJobProcess
+composer install
+npm install
+npm run dev
+```
+
+### Step 3: Set Up Environment File
+
+```bash
+cp .env.example .env
+```
+
+```bash
+php artisan key:generate
+```
+
+```bash
+php artisan migrate
+```
+
+### Step 4: Run the Application
+
+```bash
+php artisan serve
+```
+
 ## Usage
 
 To use the `runBackgroundJob` function, you need to define a class that will be executed as a background job. Although this system operates independently of Laravel's queue system, it still follows a job class structure, similar to how jobs are defined in Laravel's queue system.
@@ -89,6 +130,26 @@ This example will:
 Retry the job 3 times if it fails.
 Delay the job by 120 seconds before it starts.
 Process the job with high priority (priority 10).
+
+## Testing and Logs
+
+You can test the jobs by running the following commands:
+
+```php
+php job_runner.php --class="App\Jobs\ExampleJob" --method="process" --params='["Hello, Background Job!", 123]' --priority=1
+php job_runner.php --class="App\Jobs\ExampleJob" --method="process" --params='["Hello, Background Job!", 123]' --priority=0
+```
+
+These commands will dispatch jobs with parameters and log the results.
+
+## Dashboard
+
+Register in the application once login you will see the `php Jobs ` navbar.
+Click the link to view a page showing how a test job is running and whether it failed. This page helps you understand the process flow of background jobs in the system.
+
+Planned Improvements:
+
+User-Side Job Execution: In the future, we aim to enable users to execute background jobs directly from their side of the application.
 
 ## Conclusion
 

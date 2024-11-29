@@ -35,9 +35,9 @@ try {
     $class = filter_var($input['class'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $method = filter_var($input['method'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $params = isset($input['params']) ? json_decode($input['params'], true) : [];
-    $retries = $options['retries'] ?? 1;  
-    $delay = $options['delay'] ?? 0;      
-    $priority = $options['priority'] ?? 0; 
+    $retries = isset($input['retries']) ? (int) $input['retries'] : 1;  
+    $delay = isset($input['delay']) ? (int) $input['delay'] : 0;      
+    $priority = isset($input['priority']) ? (int) $input['priority'] : 0; 
 
     if (!is_array($params)) {
         throw new Exception("Invalid parameters: Must be a valid JSON string.");
@@ -89,7 +89,6 @@ try {
 
     // Priority-based job handling
     if ($priority > 0) {
-        // Higher priority means we execute it sooner
         $log->info("High priority job, executing immediately.", [
             'class' => $class,
             'method' => $method,
@@ -97,7 +96,6 @@ try {
             'params' => $params,
         ]);
     } else {
-        // If it's a low priority job, we simulate a delay (for testing purposes)
         $log->info("Low priority job, will be delayed.", [
             'class' => $class,
             'method' => $method,
